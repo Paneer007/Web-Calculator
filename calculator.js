@@ -7,11 +7,18 @@ function floatEnabled(){
     objectThatACalculatorMightNeed.floatActivated=true;
     updateNumber('floatInitiated')
 }
+const decimalCount = num => {
+    const numStr = String(num);
+    if (numStr.includes('.')) {
+       return numStr.split('.')[1].length;
+    };
+    return 0;
+ }
 const objectThatACalculatorMightNeed={
     floatActivated:false,
     floatcounter:0,
-    number:0,
-    number2:0,
+    number:Number(0),
+    number2:Number(0),
     isFuncApplied:false,
     evaluted:false,
     result:undefined,
@@ -122,9 +129,21 @@ function execute(e){
             break
         case 'x':
             objectThatACalculatorMightNeed.result=objectThatACalculatorMightNeed.multiply(objectThatACalculatorMightNeed.number,objectThatACalculatorMightNeed.number2);
+            if (objectThatACalculatorMightNeed.floatcounter==true){
+                objectThatACalculatorMightNeed.result*=10**(objectThatACalculatorMightNeed.floatcounter);
+                Math.floor(objectThatACalculatorMightNeed.result);
+                objectThatACalculatorMightNeed.result*=10**(-(floatcounter))
+            }
             break
         case '/':
             objectThatACalculatorMightNeed.result=objectThatACalculatorMightNeed.divide(objectThatACalculatorMightNeed.number,objectThatACalculatorMightNeed.number2);
+            if (objectThatACalculatorMightNeed.number2!=0){
+                if (objectThatACalculatorMightNeed.floatcounter==true){
+                    objectThatACalculatorMightNeed.result*=10**(objectThatACalculatorMightNeed.floatcounter);
+                    Math.floor(objectThatACalculatorMightNeed.result);
+                    objectThatACalculatorMightNeed.result*=10**(-(objectThatACalculatorMightNeed.floatcounter))
+                }
+            }
             break
     }
 
@@ -140,8 +159,13 @@ function execute(e){
     objectThatACalculatorMightNeed.number2=0;
     objectThatACalculatorMightNeed.prevNumber=0;
     objectThatACalculatorMightNeed.isFuncApplied=false;
-    objectThatACalculatorMightNeed.floatActivated=false;
-    objectThatACalculatorMightNeed.floatcounter=0;
+    if (objectThatACalculatorMightNeed.number%1==0){
+        objectThatACalculatorMightNeed.floatActivated=false;
+        objectThatACalculatorMightNeed.floatcounter=0;
+    }else{
+        objectThatACalculatorMightNeed.floatActivated=true;
+            objectThatACalculatorMightNeed.floatcounter= decimalCount(objectThatACalculatorMightNeed.number);
+    }
     objectThatACalculatorMightNeed.operator=undefined;
 }
 function darkerNumber(e){
@@ -197,6 +221,7 @@ function updateNumberKeyboard(newNumber){
             if (newNumber =='floatInitiated'){
                 display((objectThatACalculatorMightNeed.number).toFixed(1))
             }else{
+            objectThatACalculatorMightNeed.floatcounter= decimalCount(objectThatACalculatorMightNeed.number);
             number = newNumber;
             number = Number(number);
             objectThatACalculatorMightNeed.floatcounter++;
@@ -216,6 +241,7 @@ function updateNumberKeyboard(newNumber){
             }else{
             number = newNumber;
             number = Number(number);
+            objectThatACalculatorMightNeed.floatcounter= decimalCount(objectThatACalculatorMightNeed.number2)
             objectThatACalculatorMightNeed.floatcounter++;
             number*=10**-(objectThatACalculatorMightNeed.floatcounter);
             objectThatACalculatorMightNeed.number2+=number;
@@ -224,6 +250,8 @@ function updateNumberKeyboard(newNumber){
             objectThatACalculatorMightNeed.number2*=10**-(objectThatACalculatorMightNeed.floatcounter);
             objectThatACalculatorMightNeed.number2=Number((objectThatACalculatorMightNeed.number2).toFixed(objectThatACalculatorMightNeed.floatcounter))
             display((objectThatACalculatorMightNeed.number2).toFixed(objectThatACalculatorMightNeed.floatcounter));
+            
+
             }
         }
     }
@@ -253,6 +281,7 @@ function updateNumber(event){
             if (event =='floatInitiated'){
                 display((objectThatACalculatorMightNeed.number).toFixed(1))
             }else{
+                objectThatACalculatorMightNeed.floatcounter= decimalCount(objectThatACalculatorMightNeed.number)
             number = event.target.innerText;
             number = Number(number);
             objectThatACalculatorMightNeed.floatcounter++;
@@ -270,6 +299,8 @@ function updateNumber(event){
                 console.log((objectThatACalculatorMightNeed.number2).toFixed(1))
                 display('firstFloat')
             }else{
+            objectThatACalculatorMightNeed.floatcounter= decimalCount(objectThatACalculatorMightNeed.number2)
+
             number = event.target.innerText;
             number = Number(number);
             objectThatACalculatorMightNeed.floatcounter++;
@@ -287,6 +318,8 @@ function updateNumber(event){
 function clearEntry(){
     if (objectThatACalculatorMightNeed.isFuncApplied==false){
         if (objectThatACalculatorMightNeed.floatActivated==true){
+            objectThatACalculatorMightNeed.floatcounter= decimalCount(objectThatACalculatorMightNeed.number)
+            console.log(objectThatACalculatorMightNeed.floatcounter);
             objectThatACalculatorMightNeed.floatcounter--;
             objectThatACalculatorMightNeed.number*=10**(objectThatACalculatorMightNeed.floatcounter);
             objectThatACalculatorMightNeed.number= Math.floor(objectThatACalculatorMightNeed.number);
@@ -304,6 +337,7 @@ function clearEntry(){
         }
     }else{
         if (objectThatACalculatorMightNeed.floatActivated==true){
+            objectThatACalculatorMightNeed.floatcounter= decimalCount(objectThatACalculatorMightNeed.number2)
             objectThatACalculatorMightNeed.floatcounter--;
             objectThatACalculatorMightNeed.number2*=10**(objectThatACalculatorMightNeed.floatcounter);
             objectThatACalculatorMightNeed.number2= Math.floor(objectThatACalculatorMightNeed.number2);
