@@ -1,0 +1,85 @@
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-width: 5px;
+    border-style: hidden;
+}
+.calculator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(28, 28, 28);
+    border-width: 5px;
+    border-style: hidden;
+    border-radius: 5px;;
+}
+.calculatorButton{
+    display: flex;
+    flex-direction: column;
+}
+.calculatorButton div{
+    flex:1 0 auto;
+    background-color: rgb(212, 212, 212);
+    color:white;
+    margin:5px;
+    color: rgb(28, 28, 28);
+    padding:8px;
+}
+.displayResult{
+    min-width:98%;
+    height:72px;
+    margin: 8px;
+    background-color:rgb(28, 28, 28);
+    position: relative;
+    padding:0px;
+    color:white
+}
+.displayResult p{
+    text-align: center;
+    padding: auto;
+    margin: auto;
+    position: absolute;
+    bottom:0px;
+    right: 0px;
+}
+.calculatorButton div p{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calculatorButton div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button{
+    display:flex;
+    flex-direction: row-reverse;
+}
+.numButton,.funcButton, .floatButton, .executeButton{
+    width:50px;
+    height: 50px;
+    background-color: blue;
+    margin:5px;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.TopRow,.MiddleRow,.Middle2Row,.BottomRow{
+    display:flex;
+}
+.numButton, .floatButton, .executeButton{
+    background-color:rgb(80, 80, 80) ;
+}
+.funcButton{
+    background-color: rgb(255, 149, 0);
+}
+.numButton p{
+    background-color: inherit;
+}
